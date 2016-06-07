@@ -1,51 +1,87 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8"%>
 
 <html>
 <head>
-    <title>Meal list</title>
+    <title>Title</title>
 </head>
-<body>
-
-<h2>Meal list</h2><br>
+<body background="Meal.jpg">
 
 
+<c:choose>
+    <c:when test="${empty id}">
+        <h2 style="background: #a0fffc">Add meal form:</h2>
+    </c:when>
+    <c:otherwise>
+        <h2 style="background: lightblue">Edit meal form:</h2>
+    </c:otherwise>
+</c:choose>
 
-    <table class="table">
-        <thead>
+<form method="POST" action="./meals">
+    <table>
+
         <tr>
-            <th>ID</th>
-            <th>dateTime</th>
-            <th>description</th>
-            <th>calories</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
+            <td style="background: lightblue">ID</td>
+            <td><input type="text" name="id" value="${id}"/></td>
         </tr>
-        </thead>
-        <tbody>
 
-                <c:forEach var="meal" items="${mealList}">
-            <tr>
-                    <tr style="color:
-                <c:if test="${meal.exceed}">darkred</c:if>
-                <c:if test="${!meal.exceed}">darkgreen</c:if>">
-                <td>${meal.id}</td>
-                <td>${meal.dateTime}</td>
-                <td>${meal.description}</td>
-                <td>${meal.calories}</td>
+        <tr>
+            <td style="background: lightblue">Description</td>
+            <td><input type="text" name="description" value="${description}"/></td>
+        </tr>
+
+               <tr>
+            <td style="background: lightblue" >Calories</td>
+            <td><input type="text" name="calories" value="${calories}"/>
+
+        </tr>
 
 
-            </tr>
-        </c:forEach>
-        </tbody>
 
     </table>
 
+    <input type="submit" value="Add/Update"
+           style="background: #ffe627"/>
 
-<h2><a href="index.html">Home</a></h2>
-<h2><a href = "users">User List</a></h2>
+</form>
+
+<hr>
+<h2 style="background: #a0fffc">Meals list</h2>
+
+<table style="border: 3px solid; width: 500px; text-align:center">
+    <thead style="background: lightblue">
+    <tr>
+        <th>Meal ID</th>
+        <th>Date and time</th>
+        <th>Description</th>
+        <th>Calories</th>
+    </tr>
+    </thead>
+    <tbody>
+    <c:forEach var="meal" items="${meals}">
+
+        <c:url var="editUrl" value="./meals?do=edit&id=${meal.id}" />
+        <c:url var="deleteUrl" value="./meals?do=delete&id=${meal.id}" />
+        <tr <c:if test="${meal.exceed}">bgcolor= #ffb6c1 </c:if>
+            <c:if test="${!meal.exceed}">bgcolor= #adff2f</c:if>">
+
+            <td><c:out value="${meal.id}" /> </td>
+            <td><c:out value="${meal.dateTime}" /> </td>
+            <td><c:out value="${meal.description}" /></td>
+            <td><c:out value="${meal.calories}" /></td>
+
+            <td><a href="${editUrl}">Edit</a></td>
+            <td><a href="${deleteUrl}">Delete</a></td>
+        </tr>
+    </c:forEach>
+    </tbody>
+</table>
+
+<c:if test="${empty meals}">
+    There are currently no meals in the list.
+</c:if>
 
 </body>
 </html>
