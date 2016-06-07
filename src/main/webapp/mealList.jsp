@@ -68,7 +68,7 @@
             <c:if test="${!meal.exceed}">bgcolor= #adff2f</c:if>">
 
             <td><c:out value="${meal.id}" /> </td>
-            <td><c:out value="${meal.dateTime}" /> </td>
+            <td><c:out value="${meal.dateTime.format(formatter)}" /> </td>
             <td><c:out value="${meal.description}" /></td>
             <td><c:out value="${meal.calories}" /></td>
 

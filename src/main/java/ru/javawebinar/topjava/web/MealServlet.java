@@ -14,6 +14,7 @@ import java.util.List;
 
 public class MealServlet extends HttpServlet {
     private static final LoggerWrapper LOG = LoggerWrapper.get(UserServlet.class);
+   private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -21,7 +22,6 @@ public class MealServlet extends HttpServlet {
 
 // adding LocalDateTime
         LocalDateTime dateNow = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         String localDateTimeParameters = dateNow.format(formatter).replace('T',' ');
         LocalDateTime parsedDate = LocalDateTime.parse(localDateTimeParameters, formatter);
 
@@ -70,6 +70,7 @@ public class MealServlet extends HttpServlet {
         LOG.debug("get mealList");
         MealRepositoryImplementation repository = MealRepositoryImplementation.getInstance();
         List<UserMealWithExceed> list = repository.listWithExceed();
+        request.setAttribute("formatter",formatter);
         request.setAttribute("meals", list);
 
         request.getRequestDispatcher("/mealList.jsp").forward(request, response);
