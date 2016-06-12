@@ -3,6 +3,7 @@ package ru.javawebinar.topjava.repository.mock;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
+import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.model.UserMeal;
 import ru.javawebinar.topjava.repository.UserMealRepository;
 
@@ -14,7 +15,7 @@ import java.util.Collections;
  */
 @Repository
 public class MockUserMealRepositoryImpl implements UserMealRepository {
-    private static final Logger LOG = LoggerFactory.getLogger(MockUserRepositoryImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(InMemoryUserMealRepositoryImpl.class);
 
 
 
@@ -25,8 +26,9 @@ public class MockUserMealRepositoryImpl implements UserMealRepository {
     }
 
     @Override
-    public void delete(int id) {
+    public boolean delete(int id) {
         LOG.info("delete " + id);
+        return true;
 
     }
 
