@@ -7,17 +7,24 @@ import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.model.UserMeal;
 import ru.javawebinar.topjava.repository.UserMealRepository;
 
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * Created by Hp on 12.06.2016.
  */
-@Repository
+
 public class MockUserMealRepositoryImpl implements UserMealRepository {
     private static final Logger LOG = LoggerFactory.getLogger(InMemoryUserMealRepositoryImpl.class);
 
 
+    @Override
+    public List<UserMeal> getFilteredData(LocalDate dateFrom, LocalDate dateTo) {
+        LOG.info("do Filter");
+        return null;
+    }
 
     @Override
     public UserMeal save(UserMeal userMeal) {

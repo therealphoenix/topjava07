@@ -3,7 +3,9 @@ package ru.javawebinar.topjava.repository;
 import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.model.UserMeal;
 
+import java.time.LocalDate;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * GKislin
@@ -17,4 +19,5 @@ public interface UserMealRepository {
     UserMeal get(int id);
 
     Collection<UserMeal> getAll();
+    List<UserMeal> getFilteredData(LocalDate dateFrom, LocalDate dateTo);
 }

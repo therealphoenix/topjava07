@@ -20,6 +20,15 @@
     <h2><a href="index.html">Home</a></h2>
     <h3>Meal list</h3>
     <a href="meals?action=create">Add Meal</a>
+    <dt style = "padding:0px 340px;">From  </dt>
+    <dd style = "padding:0px 300px;"><input type="datetime-local" value="${meal.dateTime}" name="fromDateTime"></dd>
+
+    <dt style = "padding:0px 340px;">To </dt>
+    <dd style = "padding:0px 300px;"><input type="datetime-local" value="${meal.dateTime}" name="TodateTime"></dd>
+
+    <button type="submit">Show</button>
+
+
     <hr>
     <table border="1" cellpadding="8" cellspacing="0">
         <thead>
