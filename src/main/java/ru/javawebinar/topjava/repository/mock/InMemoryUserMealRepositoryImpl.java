@@ -1,7 +1,9 @@
 package ru.javawebinar.topjava.repository.mock;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import ru.javawebinar.topjava.LoggedUser;
 import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.model.UserMeal;
 import ru.javawebinar.topjava.repository.UserMealRepository;
@@ -11,6 +13,8 @@ import java.time.LocalDate;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Supplier;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 /**
@@ -22,30 +26,23 @@ public class InMemoryUserMealRepositoryImpl implements UserMealRepository {
     private Map<Integer, UserMeal> repository = new ConcurrentHashMap<>();
     private AtomicInteger counter = new AtomicInteger(0);
 
-    {
-        UserMealsUtil.MEAL_LIST.forEach(this::save);
-    }
-
-
-    public UserMeal save(UserMeal userMeal) {
+       public UserMeal save(UserMeal userMeal) {
         if (userMeal.isNew()) {
-            userMeal.setId(counter.incrementAndGet());
+            userMeal.setId(LoggedUser.id());
         }
-        repository.put(userMeal.getId(), userMeal);
+        repository.put(counter.incrementAndGet(), userMeal);
         return userMeal;
     }
 
     @Override
     public boolean delete(int id) {
-        boolean result = false;
-        repository.remove(id);
-
-        return result;
+       repository.remove(id);
+        return true;
     }
 
     @Override
     public UserMeal get(int id) {
-    return repository.get(id);
+        return repository.get(id);
     }
 
     @Override
@@ -53,19 +50,28 @@ public class InMemoryUserMealRepositoryImpl implements UserMealRepository {
 
         Comparator comparator = new SortedByDate();
         List<UserMeal> mealList = new ArrayList<>(repository.values());
-
         Collections.sort(mealList,comparator);
         Collections.reverse(mealList);
+/*
+        List<Optional<UserMeal>> resultList =
+                mealList.stream()
+                        .map(u->Optional.of(u))
+                        .collect(Collectors.toList());
+                        */
+
         return mealList;
     }
 
     public List<UserMeal> getFilteredData(LocalDate dateFrom, LocalDate dateTo) {
-        return repository.values()
+        List<UserMeal> mealList = repository.values()
                 .stream()
                 .filter(um ->
                         um.getDateTime().toLocalDate().compareTo(dateFrom) >= 0 &&
                         um.getDateTime().toLocalDate().compareTo(dateTo) <= 0)
                 .collect(Collectors.toList());
+
+
+        return mealList;
     }
 
     class SortedByDate implements Comparator<UserMeal> {

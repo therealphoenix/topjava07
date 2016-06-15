@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * GKislin
@@ -14,11 +15,13 @@ import java.util.List;
  */
 
 public interface UserMealService {
-    UserMeal save(UserMeal userMeal);
+
 
     void delete(int id);
 
-    UserMeal get(int id);
+    UserMeal get (int id);
+    UserMeal save(UserMeal userMeal);
+    void update(UserMeal userMeal);
 
     Collection<UserMeal> getAll();
 

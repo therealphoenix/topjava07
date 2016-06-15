@@ -6,6 +6,7 @@ import ru.javawebinar.topjava.model.UserMeal;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * GKislin
@@ -19,5 +20,5 @@ public interface UserMealRepository {
     UserMeal get(int id);
 
     Collection<UserMeal> getAll();
-    List<UserMeal> getFilteredData(LocalDate dateFrom, LocalDate dateTo);
+    List <UserMeal> getFilteredData(LocalDate dateFrom, LocalDate dateTo);
 }

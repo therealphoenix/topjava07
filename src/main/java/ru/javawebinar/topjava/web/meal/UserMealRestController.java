@@ -10,6 +10,7 @@ import ru.javawebinar.topjava.util.MealsFilter;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * GKislin
@@ -26,7 +27,7 @@ public class UserMealRestController {
     }
 
     public UserMeal get( int id) {
-        return service.get(id);
+        return service.get(LoggedUser.id());
     }
 
     public void delete(int id) {
