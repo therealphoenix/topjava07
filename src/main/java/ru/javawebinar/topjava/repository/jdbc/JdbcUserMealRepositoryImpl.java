@@ -1,6 +1,7 @@
 package ru.javawebinar.topjava.repository.jdbc;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -12,6 +13,7 @@ import ru.javawebinar.topjava.model.UserMeal;
 import ru.javawebinar.topjava.repository.UserMealRepository;
 
 import javax.sql.DataSource;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -26,7 +28,7 @@ public class JdbcUserMealRepositoryImpl implements UserMealRepository {
     private static final BeanPropertyRowMapper<UserMeal> ROW_MAPPER = BeanPropertyRowMapper.newInstance(UserMeal.class);
 
     @Autowired
-    private JdbcTemplate jdbcTemplate;
+     private JdbcTemplate jdbcTemplate;
 
     @Autowired
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
@@ -34,7 +36,7 @@ public class JdbcUserMealRepositoryImpl implements UserMealRepository {
     private SimpleJdbcInsert insertUserMeal;
 
     @Autowired
-    public JdbcUserMealRepositoryImpl(DataSource dataSource) {
+    public JdbcUserMealRepositoryImpl(@Qualifier("dataSource") DataSource dataSource) {
         this.insertUserMeal = new SimpleJdbcInsert(dataSource)
                 .withTableName("MEALS")
                 .usingGeneratedKeyColumns("id");
@@ -42,13 +44,10 @@ public class JdbcUserMealRepositoryImpl implements UserMealRepository {
 
     @Override
     public UserMeal save(UserMeal userMeal, int userId) {
-
-
-
         MapSqlParameterSource map = new MapSqlParameterSource()
                 .addValue("id", userMeal.getId())
-                .addValue("user_id",userId)
-                .addValue("dateTime", userMeal.getDateTime())
+                .addValue("user_id", userId)
+                .addValue("datetime", Timestamp.valueOf(userMeal.getDateTime()))
                 .addValue("description", userMeal.getDescription())
                 .addValue("calories", userMeal.getCalories());
 
@@ -56,18 +55,15 @@ public class JdbcUserMealRepositoryImpl implements UserMealRepository {
             Number newKey = insertUserMeal.executeAndReturnKey(map);
             userMeal.setId(newKey.intValue());
         } else {
-            if (namedParameterJdbcTemplate.update(
-                    "UPDATE meals SET user_id=:user_id, datetime=:datetime, description=:description, " +
-                            "calories=:calories WHERE id=:id AND user_id=:user_id", map) == 0) {
-                return null;
-            }
+            int affected = namedParameterJdbcTemplate.update(
+                    "UPDATE meals SET datetime=:datetime, description=:description, calories=:calories WHERE id=:id AND user_id=:user_id", map);
+            return affected == 0 ? null : userMeal;
         }
         return userMeal;
     }
-
     @Override
     public boolean delete(int id, int userId) {
-        return jdbcTemplate.update("DELETE FROM users WHERE id=?", id) != 0;
+        return jdbcTemplate.update("DELETE FROM meals WHERE (id=? AND user_id=?)", id,userId) != 0;
     }
 
     @Override

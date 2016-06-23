@@ -6,6 +6,7 @@ package ru.javawebinar.topjava.model;
  */
 public class BaseEntity {
     public static final int START_SEQ = 100000;
+    public static final int MEAL_SEQ = 1;
 
     protected Integer id;
 

@@ -8,11 +8,11 @@ import java.time.LocalDateTime;
  */
 public class UserMeal extends BaseEntity {
 
-    private LocalDateTime dateTime;
+    protected LocalDateTime dateTime;
 
-    private String description;
+    protected String description;
 
-    private int calories;
+    protected int calories;
 
     public void setDateTime(LocalDateTime dateTime) {
         this.dateTime = dateTime;
@@ -29,6 +29,11 @@ public class UserMeal extends BaseEntity {
     public UserMeal() {
         this(null, "", 0);
     }
+    public UserMeal(UserMeal um) {
+        this(um.getId(),um.getDateTime(),um.getDescription(),um.getCalories());
+
+    }
+
 
     public UserMeal(LocalDateTime dateTime, String description, int calories) {
         this(null, dateTime, description, calories);
@@ -39,6 +44,7 @@ public class UserMeal extends BaseEntity {
         this.dateTime = dateTime;
         this.description = description;
         this.calories = calories;
+
     }
 
     public LocalDateTime getDateTime() {
