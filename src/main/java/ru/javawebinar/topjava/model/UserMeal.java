@@ -1,23 +1,56 @@
 package ru.javawebinar.topjava.model;
 
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.persistence.*;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 /**
  * GKislin
  * 11.01.2015.
  */
+@NamedQueries({
+        @NamedQuery(name = UserMeal.GET, query = "SELECT m FROM UserMeal m WHERE m.id=:id AND m.user.id=:userId"),
+        @NamedQuery(name = UserMeal.ALL_SORTED, query = "SELECT m FROM UserMeal m WHERE m.user.id=:userId ORDER BY m.dateTime DESC"),
+        @NamedQuery(name = UserMeal.DELETE, query = "DELETE FROM UserMeal m WHERE m.id=:id AND m.user.id=:userId"),
+        @NamedQuery(name = UserMeal.GET_BETWEEN,
+                query = "SELECT m from UserMeal m WHERE m.user.id=:userId " +
+                        " AND m.dateTime BETWEEN :startDate AND :endDate ORDER BY m.dateTime DESC"),
+
+        @NamedQuery(name = UserMeal.UPDATE, query = "UPDATE UserMeal m SET m.dateTime = :datetime, m.calories= :calories," +
+                "m.description=:desc where m.id=:id and m.user.id=:userId")
+})
+
+@Entity
+@Table(name = "meals")
 public class UserMeal extends BaseEntity {
 
-    private LocalDateTime dateTime;
+    public static final String GET = "UserMeal.get";
+    public static final String GET_BETWEEN = "UserMeal.getBeetween";
+    public static final String UPDATE = "UserMeal.update";
+    public static final String DELETE = "UserMeal.delete";
+    public static final String ALL_SORTED = "UserMeal.getAllSorted";
 
-    private String description;
 
-    protected int calories;
+@Column(name = "date_time", nullable = false)
+@NotNull
+@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+protected LocalDateTime dateTime;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private User user;
+@Column(name = "description", nullable = false)
+@NotEmpty
+private String description;
+
+@Column(name = "calories", nullable = false)
+@Digits(fraction = 0, integer = 4)
+protected int calories;
+
+@ManyToOne(fetch = FetchType.LAZY)
+@JoinColumn(name = "user_id", nullable = false)
+private User user;
 
     public UserMeal() {
     }
@@ -55,6 +88,10 @@ public class UserMeal extends BaseEntity {
 
     public void setCalories(int calories) {
         this.calories = calories;
+    }
+
+    public void setId(Integer id) {
+        super.id = id;
     }
 
     public User getUser() {
