@@ -25,7 +25,8 @@ import java.time.LocalDateTime;
 })
 
 @Entity
-@Table(name = "meals")
+@Table(name = "meals", uniqueConstraints = {@UniqueConstraint(columnNames = "user_id", name = "meals_unique_user_datetime_idx"),
+        @UniqueConstraint(columnNames = "date_time", name = "meals_unique_user_datetime_idx")})
 public class UserMeal extends BaseEntity {
 
     public static final String GET = "UserMeal.get";
