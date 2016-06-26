@@ -1,6 +1,10 @@
 package ru.javawebinar.topjava.service;
 
+import org.junit.Assert;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TestWatcher;
+import org.junit.runner.Description;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -13,6 +17,7 @@ import ru.javawebinar.topjava.model.Role;
 import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.util.exception.NotFoundException;
 
+import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -26,6 +31,24 @@ import static ru.javawebinar.topjava.UserTestData.*;
 @RunWith(SpringJUnit4ClassRunner.class)
 @Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
 public class UserServiceTest {
+
+    static Long startTime;
+    static Long finishTime;
+
+    @Rule
+    public TestWatcher watcher = new TestWatcher() {
+        @Override
+        protected void starting(Description description) {
+            startTime = LocalTime.now().toNanoOfDay();
+        }
+
+        @Override
+        protected void finished(Description description) {
+            finishTime = LocalTime.now().toNanoOfDay();
+            System.out.println(finishTime - startTime + " milliseconds");
+            System.out.println();
+        }
+    };
 
     @Autowired
     protected UserService service;
