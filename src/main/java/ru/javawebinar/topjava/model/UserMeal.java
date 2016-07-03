@@ -17,6 +17,7 @@ import java.time.LocalDateTime;
         @NamedQuery(name = UserMeal.DELETE, query = "DELETE FROM UserMeal m WHERE m.id=:id AND m.user.id=:userId"),
         @NamedQuery(name = UserMeal.GET_BETWEEN, query = "SELECT m FROM UserMeal m "+
                                                           "WHERE m.user.id=:userId AND m.dateTime BETWEEN :startDate AND :endDate ORDER BY m.dateTime DESC"),
+        @NamedQuery(name = UserMeal.ALL_FOR_USER, query = "SELECT um FROM UserMeal um JOIN FETCH um.user user WHERE um.id = :id AND user.id = :userId")
 
 //        @NamedQuery(name = UserMeal.UPDATE, query = "UPDATE UserMeal m SET m.dateTime = :datetime, m.calories= :calories," +
 //                "m.description=:desc where m.id=:id and m.user.id=:userId")
@@ -28,6 +29,7 @@ public class UserMeal extends BaseEntity {
     public static final String ALL_SORTED = "UserMeal.getAll";
     public static final String DELETE = "UserMeal.delete";
     public static final String GET_BETWEEN = "UserMeal.getBetween";
+    public static final String ALL_FOR_USER = "UserMeal.getAllForUser";
 
     @Column(name = "date_time", nullable = false)
     @NotNull
