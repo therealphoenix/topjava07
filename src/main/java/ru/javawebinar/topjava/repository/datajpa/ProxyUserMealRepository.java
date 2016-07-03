@@ -20,8 +20,7 @@ public interface ProxyUserMealRepository extends JpaRepository<UserMeal, Integer
 
 
     @Transactional
-    @Modifying
-    UserMeal save(UserMeal userMeal, int userId);
+    UserMeal save(UserMeal userMeal);
 
     // false if meal do not belong to userId
     @Transactional
