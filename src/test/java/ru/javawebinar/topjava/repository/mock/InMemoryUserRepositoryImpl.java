@@ -2,6 +2,7 @@ package ru.javawebinar.topjava.repository.mock;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.Assert;
 import ru.javawebinar.topjava.model.User;
@@ -74,5 +75,10 @@ public class InMemoryUserRepositoryImpl implements UserRepository {
                 .filter(u -> email.equals(u.getEmail()))
                 .findFirst()
                 .orElse(null);
+    }
+
+    @CacheEvict(value = "users", allEntries = true)
+    @Override
+    public void evictCache() {
     }
 }

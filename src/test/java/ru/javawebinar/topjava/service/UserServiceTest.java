@@ -39,6 +39,8 @@ public class UserServiceTest {
         service.evictCache();
     }
         
+
+        
     @Test
     public void testSave() throws Exception {
         TestUser tu = new TestUser(null, "New", "new@gmail.com", "newPass", 1555, false, Collections.singleton(Role.ROLE_USER));

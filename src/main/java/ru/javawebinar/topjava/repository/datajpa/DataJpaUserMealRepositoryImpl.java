@@ -19,7 +19,6 @@ import java.util.List;
  */
 @Repository
 public class DataJpaUserMealRepositoryImpl implements UserMealRepository{
-    private static final Sort SORT_DATETIME = new Sort("dateTime");
     @Autowired
     private ProxyUserMealRepository proxyUserMeal;
 
@@ -33,40 +32,30 @@ public class DataJpaUserMealRepositoryImpl implements UserMealRepository{
         if(userMeal.isNew()) {
             return proxyUserMeal.save(userMeal);
         } else {
-            return proxyUserMeal.findOne(userMeal.getId(), userId) == null ? null : proxyUserMeal.save(userMeal);
+            return proxyUserMeal.get(userMeal.getId(), userId) == null ? null : proxyUserMeal.save(userMeal);
         }
     }
-
     @Override
     public boolean delete(int id, int userId) {
-        UserMeal userMeal = proxyUserMeal.findOne(id, userId);
+        UserMeal userMeal = proxyUserMeal.get(id, userId);
         if (userMeal == null) return false;
         proxyUserMeal.delete(userMeal);
         return true;
     }
-
-
     @Override
     public UserMeal get(int id, int userId) {
-        UserMeal userMeal = proxyUserMeal.findOne(id,userId);
-        if(userMeal == null) return null;
-        return userMeal;
+        return proxyUserMeal.get(id, userId);
     }
-
     @Override
     public List<UserMeal> getAll(int userId) {
-
-        return proxyUserMeal.findAll(SORT_DATETIME,userId);
+        return proxyUserMeal.findAll(userId);
     }
-
     @Override
     public List<UserMeal> getBetween(LocalDateTime startDate, LocalDateTime endDate, int userId) {
-        List<UserMeal> result = new ArrayList<>(proxyUserMeal.getBetween(startDate,endDate,userId));
-        return result;
+        return proxyUserMeal.getBetween(startDate, endDate, userId);
+    }
 
-            }
-
-    public List<UserMeal> getAllForUser(int id, int userId){
-        return proxyUserMeal.getAllForUser(id,userId);
+    public UserMeal getWithUser(int id, int userId) {
+        return proxyUserMeal.getAllForUser(id, userId);
     }
 }

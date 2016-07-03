@@ -18,7 +18,9 @@ import java.util.List;
 @Transactional(readOnly = true)
 public interface ProxyUserMealRepository extends JpaRepository<UserMeal, Integer> {
 
+
     @Transactional
+    @Modifying
     UserMeal save(UserMeal userMeal, int userId);
 
     // false if meal do not belong to userId
@@ -30,19 +32,20 @@ public interface ProxyUserMealRepository extends JpaRepository<UserMeal, Integer
 
 
     @Query(name  = UserMeal.GET)
-    UserMeal findOne(@Param("id") int id, @Param("userId") int userId);
+    UserMeal get(@Param("id") int id, @Param("userId") int userId);
 
     // ORDERED dateTime
+
     @Query(name = UserMeal.ALL_SORTED)
-    List<UserMeal> findAll(Sort sort, @Param("userId") int  userId);
+    List<UserMeal> findAll(@Param("userId") int  userId);
 
     // ORDERED dateTime
     @Query(name = UserMeal.GET_BETWEEN)
-    Collection<UserMeal> getBetween(@Param("startDate") LocalDateTime startDate,
+    List<UserMeal> getBetween(@Param("startDate") LocalDateTime startDate,
                                     @Param("endDate") LocalDateTime endDate,
                                     @Param("userId") int userId);
     @Query(name = UserMeal.ALL_FOR_USER)
-   List<UserMeal> getAllForUser(@Param("id")int id, @Param("user_id")int userId);
+   UserMeal getAllForUser(@Param("id")int id, @Param("user_id")int userId);
 }
 
 
