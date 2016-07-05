@@ -77,6 +77,8 @@ public abstract class BaseUserTest {
         MATCHER.assertCollectionEquals(Arrays.asList(ADMIN, USER), all);
     }
 
+
+
     @Test
     public void testUpdate() throws Exception {
         TestUser updated = new TestUser(USER);

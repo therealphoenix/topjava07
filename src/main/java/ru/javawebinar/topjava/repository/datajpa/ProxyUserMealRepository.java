@@ -44,7 +44,7 @@ public interface ProxyUserMealRepository extends JpaRepository<UserMeal, Integer
                                     @Param("endDate") LocalDateTime endDate,
                                     @Param("userId") int userId);
     @Query(name = UserMeal.ALL_FOR_USER)
-   UserMeal getAllForUser(@Param("id")int id, @Param("user_id")int userId);
+  UserMeal getAllForUser(@Param("id")int id, @Param("user_id")int userId);
 }
 
 

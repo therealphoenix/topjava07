@@ -3,6 +3,7 @@ package ru.javawebinar.topjava.repository.datajpa;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.model.UserMeal;
 import ru.javawebinar.topjava.repository.UserMealRepository;
@@ -55,7 +56,8 @@ public class DataJpaUserMealRepositoryImpl implements UserMealRepository{
         return proxyUserMeal.getBetween(startDate, endDate, userId);
     }
 
-    public UserMeal getWithUser(int id, int userId) {
+    @Transactional(readOnly=true)
+    public UserMeal getAllForUser(int id, int userId) {
         return proxyUserMeal.getAllForUser(id, userId);
     }
 }

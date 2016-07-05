@@ -1,6 +1,8 @@
 package ru.javawebinar.topjava.repository;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.transaction.annotation.Transactional;
 import ru.javawebinar.topjava.Profiles;
+import ru.javawebinar.topjava.UserTestData;
 import ru.javawebinar.topjava.repository.*;
 import org.junit.Rule;
 import org.junit.Test;
@@ -20,6 +22,7 @@ import java.util.concurrent.TimeUnit;
 
 import static ru.javawebinar.topjava.MealTestData.*;
 import static ru.javawebinar.topjava.MealTestData.MEAL1;
+import static ru.javawebinar.topjava.UserTestData.ADMIN;
 import static ru.javawebinar.topjava.UserTestData.ADMIN_ID;
 import static ru.javawebinar.topjava.UserTestData.USER_ID;
 
@@ -65,6 +68,14 @@ import static ru.javawebinar.topjava.UserTestData.USER_ID;
     public void testGetNotFound() throws Exception {
         thrown.expect(NotFoundException.class);
         service.get(MEAL1_ID, ADMIN_ID);
+    }
+
+    @Test
+    @Transactional
+    public void testGetWithUser() throws Exception {
+        UserMeal actual = service.get(ADMIN_MEAL_ID, ADMIN_ID);
+        MATCHER.assertEquals(ADMIN_MEAL, actual);
+        UserTestData.MATCHER.assertEquals(ADMIN, actual.getUser());
     }
 
     @Test
