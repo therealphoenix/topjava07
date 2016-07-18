@@ -21,7 +21,7 @@ abstract public class AbstractUserMealServiceTest extends AbstractServiceTest {
     @Test
     public void testDelete() throws Exception {
         service.delete(MEAL1_ID, USER_ID);
-        MATCHER.assertCollectionEquals(Arrays.asList(MEAL6, MEAL5, MEAL4, MEAL3, MEAL2), service.getAll(USER_ID));
+        MEAL_MATHCER.assertCollectionEquals(Arrays.asList(MEAL6, MEAL5, MEAL4, MEAL3, MEAL2), service.getAll(USER_ID));
     }
 
     @Test
@@ -34,13 +34,13 @@ abstract public class AbstractUserMealServiceTest extends AbstractServiceTest {
     public void testSave() throws Exception {
         UserMeal created = getCreated();
         service.save(created, USER_ID);
-        MATCHER.assertCollectionEquals(Arrays.asList(created, MEAL6, MEAL5, MEAL4, MEAL3, MEAL2, MEAL1), service.getAll(USER_ID));
+        MEAL_MATHCER.assertCollectionEquals(Arrays.asList(created, MEAL6, MEAL5, MEAL4, MEAL3, MEAL2, MEAL1), service.getAll(USER_ID));
     }
 
     @Test
     public void testGet() throws Exception {
         UserMeal actual = service.get(ADMIN_MEAL_ID, ADMIN_ID);
-        MATCHER.assertEquals(ADMIN_MEAL, actual);
+        MEAL_MATHCER.assertEquals(ADMIN_MEAL, actual);
     }
 
     @Test
@@ -53,7 +53,7 @@ abstract public class AbstractUserMealServiceTest extends AbstractServiceTest {
     public void testUpdate() throws Exception {
         UserMeal updated = getUpdated();
         service.update(updated, USER_ID);
-        MATCHER.assertEquals(updated, service.get(MEAL1_ID, USER_ID));
+        MEAL_MATHCER.assertEquals(updated, service.get(MEAL1_ID, USER_ID));
     }
 
     @Test
@@ -66,12 +66,12 @@ abstract public class AbstractUserMealServiceTest extends AbstractServiceTest {
 
     @Test
     public void testGetAll() throws Exception {
-        MATCHER.assertCollectionEquals(USER_MEALS, service.getAll(USER_ID));
+        MEAL_MATHCER.assertCollectionEquals(USER_MEALS, service.getAll(USER_ID));
     }
 
     @Test
     public void testGetBetween() throws Exception {
-        MATCHER.assertCollectionEquals(Arrays.asList(MEAL3, MEAL2, MEAL1),
+        MEAL_MATHCER.assertCollectionEquals(Arrays.asList(MEAL3, MEAL2, MEAL1),
                 service.getBetweenDates(LocalDate.of(2015, Month.MAY, 30), LocalDate.of(2015, Month.MAY, 30), USER_ID));
     }
 }

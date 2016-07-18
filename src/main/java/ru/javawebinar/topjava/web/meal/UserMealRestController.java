@@ -2,78 +2,62 @@ package ru.javawebinar.topjava.web.meal;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ru.javawebinar.topjava.AuthorizedUser;
 import ru.javawebinar.topjava.model.UserMeal;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import ru.javawebinar.topjava.model.UserMeal;
 import ru.javawebinar.topjava.service.UserMealService;
 import ru.javawebinar.topjava.to.UserMealWithExceed;
 import ru.javawebinar.topjava.util.TimeUtil;
 import ru.javawebinar.topjava.util.UserMealsUtil;
 
-import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * GKislin
  * 06.03.2015.
  */
-@Controller
+@RestController
+@RequestMapping(UserMealRestController.REST_URL)
 public class UserMealRestController extends AbstractUserMealController {
-    private static final Logger LOG = LoggerFactory.getLogger(UserMealRestController.class);
+    static final String REST_URL = "/rest/meals";
 
-    @Autowired
-    private UserMealService service;
 
-    public UserMeal get(int id) {
-        int userId = AuthorizedUser.id();
-        LOG.info("get meal {} for User {}", id, userId);
-        return service.get(id, userId);
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public UserMeal get(@PathVariable("id") Integer id) {
+        return super.get(id);
     }
 
-    public void delete(int id) {
-        int userId = AuthorizedUser.id();
-        LOG.info("delete meal {} for User {}", id, userId);
-        service.delete(id, userId);
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public void delete(@PathVariable("id") Integer id) {
+        super.delete(id);
     }
-//r
+
+    //r
+@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<UserMealWithExceed> getAll() {
-        int userId = AuthorizedUser.id();
-        LOG.info("getAll for User {}", userId);
-        return UserMealsUtil.getWithExceeded(service.getAll(userId), AuthorizedUser.getCaloriesPerDay());
+        return super.getAll();
     }
 //
-    public void update(UserMeal meal, int id) {
+@RequestMapping(path = "/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public void update(@RequestBody UserMeal meal,@PathVariable("id") int id) {
         meal.setId(id);
         int userId = AuthorizedUser.id();
-        LOG.info("update {} for User {}", meal, userId);
-        service.update(meal, userId);
+        super.update(meal, userId);
     }
-
-    public UserMeal create(UserMeal meal) {
-        meal.setId(null);
-        int userId = AuthorizedUser.id();
-        LOG.info("create {} for User {}", meal, userId);
-        return service.save(meal, userId);
+    @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public UserMeal create(@RequestBody UserMeal meal) {
+        return super.create(meal);
     }
-
-    public List<UserMealWithExceed> getBetween(LocalDate startDate, LocalTime startTime, LocalDate endDate, LocalTime endTime) {
-        int userId = AuthorizedUser.id();
-        LOG.info("getBetween dates {} - {} for time {} - {} for User {}", startDate, endDate, startTime, endTime, userId);
-
-        return UserMealsUtil.getFilteredWithExceeded(
-                service.getBetweenDates(
-                        startDate != null ? startDate : TimeUtil.MIN_DATE, endDate != null ? endDate : TimeUtil.MAX_DATE, userId),
-                        startTime != null ? startTime : LocalTime.MIN, endTime != null ? endTime : LocalTime.MAX, AuthorizedUser.getCaloriesPerDay()
-        );
+    @RequestMapping(path = "/filter", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public List<UserMealWithExceed> getBetween(@RequestBody LocalDate startDate, @RequestBody LocalTime startTime,
+                                               @RequestBody LocalDate endDate, @RequestBody LocalTime endTime) {
+          return super.getBetween(startDate,startTime,endDate,endTime);
     }
 }

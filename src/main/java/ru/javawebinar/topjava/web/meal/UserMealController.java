@@ -21,6 +21,7 @@ import java.util.Objects;
 @RequestMapping(value = "/meals")
 public class UserMealController extends AbstractUserMealController {
 
+
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
     public String delete(HttpServletRequest request) {
         super.delete(getId(request));
