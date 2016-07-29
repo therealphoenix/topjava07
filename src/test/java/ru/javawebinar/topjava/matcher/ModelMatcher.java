@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 public class ModelMatcher<T, R> {
     protected Function<T, R> entityConverter;
 
-    public ModelMatcher(Function<T, R> entityConverter) {
+    public ModelMatcher(Function<T, R> entityConverter, Class<T> entityClass) {
         this.entityConverter = entityConverter;
     }
 
