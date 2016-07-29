@@ -3,7 +3,6 @@ package ru.javawebinar.topjava;
 import ru.javawebinar.topjava.matcher.ModelMatcher;
 import ru.javawebinar.topjava.model.Role;
 import ru.javawebinar.topjava.model.User;
-import ru.javawebinar.topjava.util.UserMealsUtil;
 
 import java.util.EnumSet;
 import java.util.Objects;
@@ -22,7 +21,7 @@ public class UserTestData {
     public static final User USER = new User(USER_ID, "User", "user@yandex.ru", "password", Role.ROLE_USER);
     public static final User ADMIN = new User(ADMIN_ID, "Admin", "admin@gmail.com", "admin", Role.ROLE_ADMIN, Role.ROLE_USER);
 
-    public static final ModelMatcher<User, TestUser> MATCHER = new ModelMatcher<>(u -> ((u instanceof TestUser) ? (TestUser) u : new TestUser(u)), entityClass);
+    public static final ModelMatcher<User, TestUser> MATCHER = new ModelMatcher<>(u -> ((u instanceof TestUser) ? (TestUser) u : new TestUser(u)), User.class);
 
     public static class TestUser extends User {
 
@@ -31,7 +30,7 @@ public class UserTestData {
         }
 
         public TestUser(String name, String email, String password, Role role, Role... roles) {
-            this(null, name, email, password, UserMealsUtil.DEFAULT_CALORIES_PER_DAY, true, EnumSet.of(role, roles));
+            this(null, name, email, password, User.DEFAULT_CALORIES_PER_DAY, true, EnumSet.of(role, roles));
         }
 
         public TestUser(Integer id, String name, String email, String password, int caloriesPerDay, boolean enabled, Set<Role> roles) {

@@ -6,7 +6,8 @@
 <body>
 <jsp:include page="fragments/bodyHeader.jsp"/>
 <section>
-    <h3><fmt:message key="${meal.isNew() ? 'meals.add' : 'meals.edit'}"/></h3>
+    <h2><a href="">Home</a></h2>
+    <h3><fmt:message key="meals.edit"/></h3>
     <hr>
     <jsp:useBean id="meal" type="ru.javawebinar.topjava.model.UserMeal" scope="request"/>
     <form method="post" action="meals">
