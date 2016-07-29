@@ -15,7 +15,7 @@
             </bean>
             <bean class="org.springframework.http.converter.StringHttpMessageConverter">
                 <property name="supportedMediaTypes">
-                    <list>
+                    <list >
                         <value>text/plain;charset=UTF-8</value>
                         <value>text/html;charset=UTF-8</value> <!--- Fix AbstractMessageConverterMethodProcessor#142 -->
                     </list>
