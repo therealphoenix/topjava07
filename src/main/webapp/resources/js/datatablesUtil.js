@@ -1,36 +1,46 @@
+var form;
+
 function makeEditable() {
+    form = $('#detailsForm');
 
-    $('#add').click(function () {
-        $('#id').val(0);
-        $('#editRow').modal();
-    });
-
-    $('.delete').click(function () {
-        var itemId = this.parentNode.parentNode.id;
-        debugger;
-        deleteRow(itemId);
-    });
-
-    $("[name = userIsEnabled]").change(function () {
-        var itemId = this.parentNode.parentNode.id;
-        var destUrl = ajaxUrl + itemId + '/inverse_is_enabled';
-        debugger;
-        $.ajax({
-            url: destUrl,
-            type: 'POST',
-            success: function () {
-                successNoty('Changed');
-            }
-        });
-    });
-
-    $('#detailsForm').submit(function () {
+    form.submit(function () {
         save();
         return false;
     });
 
     $(document).ajaxError(function (event, jqXHR, options, jsExc) {
         failNoty(event, jqXHR, options, jsExc);
+    });
+
+    $('.datepicker').datetimepicker({
+        timepicker: false,
+        format: 'Y-m-d',
+        theme: 'dark'
+    });
+
+    $('.timepicker').datetimepicker({
+        datepicker: false,
+        format: 'H:i',
+        theme: 'dark'
+    });
+
+    $('.datetimepicker').datetimepicker({
+        format: 'Y-m-d H:i'
+    });
+}
+
+function add() {
+    form.find(":input").val("");
+    $('#id').val(null);
+    $('#editRow').modal();
+}
+
+function updateRow(id) {
+    $.get(ajaxUrl + id, function (data) {
+        $.each(data, function (key, value) {
+            form.find("input[name='" + key + "']").val(value);
+        });
+        $('#editRow').modal();
     });
 }
 
@@ -45,31 +55,24 @@ function deleteRow(id) {
     });
 }
 
-function updateTable() {
-
-    var destUrl;
-    if (ajaxUrl == 'ajax/meals/') {
-        destUrl = ajaxUrl +
-            "filter?startDate=" + $("[name = startDate]").val() +
-            "&startTime=" + $("[name = startTime]").val()  +
-            "&endDate=" + $("[name = endDate]").val() +
-            "&endTime=" + $("[name = endTime]").val();
-    } else {
-        destUrl = ajaxUrl;
-    }
-    debugger;
-    $.get(destUrl, function (data) {
-        oTable_datatable.clear();
-        $.each(data, function (key, item) {
-            oTable_datatable.row.add(item);
-        });
-        oTable_datatable.draw();
+function enable(chkbox, id) {
+    var enabled = chkbox.is(":checked");
+    chkbox.closest('tr').css("text-decoration", enabled ? "none" : "line-through");
+    $.ajax({
+        url: ajaxUrl + id,
+        type: 'POST',
+        data: 'enabled=' + enabled,
+        success: function () {
+            successNoty(enabled ? 'Enabled' : 'Disabled');
+        }
     });
 }
 
+function updateTableByData(data) {
+    datatableApi.clear().rows.add(data).draw();
+}
+
 function save() {
-    var form = $('#detailsForm');
-    debugger;
     $.ajax({
         type: "POST",
         url: ajaxUrl,
@@ -84,7 +87,7 @@ function save() {
 
 var failedNote;
 
-function closeNote() {
+function closeNoty() {
     if (failedNote) {
         failedNote.close();
         failedNote = undefined;
@@ -92,7 +95,7 @@ function closeNote() {
 }
 
 function successNoty(text) {
-    closeNote();
+    closeNoty();
     noty({
         text: text,
         type: 'success',
@@ -102,10 +105,24 @@ function successNoty(text) {
 }
 
 function failNoty(event, jqXHR, options, jsExc) {
-    closeNote();
+    closeNoty();
     failedNote = noty({
-        text: 'Failed: ' + jqXHR.statusText + "<br>",
+        text: 'Failed: ' + jqXHR.statusText + "<br>" + jqXHR.responseJSON,
         type: 'error',
         layout: 'bottomRight'
     });
+}
+
+function renderEditBtn(data, type, row) {
+    if (type == 'display') {
+        return '<a class="btn btn-xs btn-primary" onclick="updateRow(' + row.id + ');">Edit</a>';
+    }
+    return data;
+}
+
+function renderDeleteBtn(data, type, row) {
+    if (type == 'display') {
+        return '<a class="btn btn-xs btn-danger" onclick="deleteRow(' + row.id + ');">Delete</a>';
+    }
+    return data;
 }
