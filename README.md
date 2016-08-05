@@ -1,129 +1,107 @@
-Java Enterprise Online Project 
-===============================
+# Онлайн проекта <a href="https://github.com/JavaWebinar/topjava07">Topjava</a>
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/fd10a882fc3048a2bbdc5c347fa4fac3)](https://www.codacy.com/app/javawebinar/topjava07)
+- **Браузер кэширует javascript и css. Если изменения не работают, обновите приложение в браузере по Ctrl+F5**
+- **При удалении файлов не забывайте делать clean: `mvn clean package`**
 
-Наиболее востребованные технологии /инструменты / фреймворки Java Enterprise:
-Maven/ Spring/ Security/ JPA(Hibernate)/ REST(Jackson)/ Bootstrap(CSS)/ jQuery + plugins.
+## ![hw](https://cloud.githubusercontent.com/assets/13649199/13672719/09593080-e6e7-11e5-81d1-5cb629c438ca.png) Разбор домашнего задания HW8
 
-## <a href="https://github.com/JavaOPs/topjava" target=_blank>Вступительное занятие</a>
-### <a href="https://github.com/JavaOPs/topjava/description.md">Описание и план проекта</a>
-### <a href="https://github.com/JavaOPs/topjava/wiki">Требования к участникам, Wiki</a>
-### <a href="http://topjava.herokuapp.com/" target=_blank>Демо разрабатываемого приложения</a>
+### ![video](https://cloud.githubusercontent.com/assets/13649199/13672715/06dbc6ce-e6e7-11e5-81a9-04fbddb9e488.png) 1. <a href="https://drive.google.com/open?id=0B9Ye2auQ_NsFb0JKbElkT000amM">HW8</a>
+> Поправка к видео: в гриде bootstrap 12 колонок.
 
-- _Рассылка занятий происходит по четвергам_.
-- _Для участников с проверкой домашнего задания желательно присылать ссылку на решение в GitHub до вечера следующего вторника, чтобы я успел сделать ревью кода._
+- **<a href="https://drive.google.com/open?id=0B9Ye2auQ_NsFdzZSeGlJYkw3aVE">1-HW8.patch</a>**
+- <a href="http://getbootstrap.com/css/#grid">Grid system</a>
+- <a href="http://getbootstrap.com/css/#description">Bootstrap description</a>
+- <a href="http://getbootstrap.com/css/#forms">Bootstrap forms</a>
 
-#### 26.05: Старт проекта
-- Заполнение формы регистрации участника (в том числе gmail для доступа к материалам на Google Drive)
-- Сбор группы в Slack
-- Раздача учебных лицензий JetBrains IDEA
-- Выполнение <a href="https://github.com/JavaOPs/topjava">вступительного задания</a>
+###  ![video](https://cloud.githubusercontent.com/assets/13649199/13672715/06dbc6ce-e6e7-11e5-81a9-04fbddb9e488.png) 2. <a href="https://drive.google.com/open?id=0B9Ye2auQ_NsFV0VKY2FGbndGMTQ">HW8 Optional (enable/disable user)</a>
+> Вместо использования id и селекторов сделал обработчики `onclick`
 
-#### 02.06: 1-е занятие
-- Разбор домашнего задания вступительного занятия (вместе с Optional)
-- Обзор используемых в проекте технологий. Интеграция ПО
-- Maven
-- WAR. Веб-контейнер Tomcat. Сервлеты
-- Логирование
-- Уровни и зависимости логгирования. JMX
-- Домашнее задание 1-го занятия (HW1 + Optional)
+> Убрал  `init()`. При переводе таблицы на Ajax вместо него будет `createdRow`
 
-#### 09.06: 2-е занятие
-- Разбор домашнего задания HW1 + Optional
-- Библиотека vs Фреймворк. Стандартные библиотеки Apache Commons, Guava
-- Слои приложения. Создание каркаса приложения
-- Обзор Spring Framework. Spring Context
-- Пояснения к HW2. Обработка Autowired
-- Домашнее задание (HW2 + Optional)
+-  **<a href="https://drive.google.com/open?id=0B9Ye2auQ_NsFVnc1N2NFYkdnRFE">2-HW8-refactor.patch</a>**
+- <a href="https://learn.javascript.ru/introduction-browser-events">Введение в браузерные события</a>
+-  **<a href="https://drive.google.com/open?id=0B9Ye2auQ_NsFTmNuNmlhcU5CX0k">3-HW8-enable-disable.patch</a>**
 
-#### 16.06: 3-е занятие
-- Разбор домашнего задания HW2 + Optional
-- Жизненный цикл Spring контекста
-- Тестирование через JUnit
-- Spring Test
-- Базы данных. Обзор NoSQL и Java persistence solution без ORM
-- Настройка Database в IDEA
-- Скрипты инициализации базы. Spring Jdbc Template
-- Подготовка тестовых данных и тестирование UserService
-- Логирование тестов
-- Домашнее задание (HW3 + Optional)
+### ![video](https://cloud.githubusercontent.com/assets/13649199/13672715/06dbc6ce-e6e7-11e5-81a9-04fbddb9e488.png) 3. <a href="https://drive.google.com/open?id=0B9Ye2auQ_NsFMFJGLV9SaFBpQVE">HW8 Optional (new API)</a>
+-  **<a href="https://drive.google.com/open?id=0B9Ye2auQ_NsFNU1IRVB6YVM0QWM">4_HW8_newApi.patch</a>**
+> Новое API: поменялось как обновление таблицы, так и ее формат параметров.
 
-#### 23.06: 4-е занятие
-- Разбор домашнего задания HW3 + Optional
-- Методы улучшения качества кода
-- Spring: инициализация и популирование DB
-- Подмена контекста при тестировании
-- ORM. Hibernate. JPA
-- Поддержка HSQLDB
-- Домашнее задание (HW4 + Optional)
+-  <a href="https://datatables.net/upgrade/1.10-convert">Converting parameter names for 1.10</a>
 
-#### 30.06: 5-е занятие
-- Разбор вопросов
-- Разбор домашнего задания HW4 + Optional
-- Транзакции
-- Профили Maven и Spring
-- Пул коннектов
-- Spring Data JPA
-- Spring кэш
-- Домашнее задание (HW5 + Optional)
+## Занятие 9:
 
-#### 07.07: 6-е занятие
-- Разбор домашнего задания HW5 + Optional
-- Кэш Hibernate
-- Spring Web
-- JPS, JSTL, internationalization
-- Динамическое изменение профиля при запуске
-- Конфигурирование Tomcat через maven plugin. Jndi-lookup
-- Spring Web MVC
-- Spring Internationalization
-- Домашнее задание (HW6 + Optional)
+### ![video](https://cloud.githubusercontent.com/assets/13649199/13672715/06dbc6ce-e6e7-11e5-81a9-04fbddb9e488.png) 4.  <a href="https://drive.google.com/open?id=0B9Ye2auQ_NsFYlRkc2NGRGVydk0">Spring Binding</a>
+-  **<a href="https://drive.google.com/open?id=0B9Ye2auQ_NsFRy04U3ZTZlkwc2c">5_binding.patch</a>**
 
-#### 14.07: 7-е занятие
-- Разбор домашнего задания HW6 + Optional
-- Автогенерация DDL по модели
-- Тестирование Spring MVC
-- REST контроллеры
-- Тестирование REST контроллеров. Jackson
-- jackson-datatype-hibernate. Тестирование через матчеры
-- Тестирование через SoapUi. UTF-8
-- Домашнее задание (HW7 + Optional)
+>  Move `ru.javawebinar.topjava.util.UserMealsUtil.DEFAULT_CALORIES_PER_DAY` to `ru.javawebinar.topjava.util.UserUtil`
 
-#### 21.07: 8-е занятие
-- Разбор домашнего задания HW7 + Optional
-- WebJars. jQuery и JavaScript frameworks
-- Bootstrap
-- AJAX. Datatables. jQuery
-- jQuery notifications plugin
-- Добавление Spring Security
-- Домашнее задание (HW8 + Optional)
+### ![video](https://cloud.githubusercontent.com/assets/13649199/13672715/06dbc6ce-e6e7-11e5-81a9-04fbddb9e488.png) 5.  <a href="https://drive.google.com/open?id=0B9Ye2auQ_NsFd2ZvcS1pSjdMQlU">Реализация update</a>
+-  **<a href="https://drive.google.com/open?id=0B9Ye2auQ_NsFd0tSMFNNc001elE">6_update.patch</a>**
 
-#### 28.07: 9-е занятие
-- Разбор домашнего задания HW8 + Optional
-- Spring Binding
-- Spring Validation
-- Перевод DataTables на Ajax
-- Форма login / logout
-- Реализация собственного провайдера авторицазии
-- Принцип работы Spring Security. Проксирование
-- Spring Security Test
-- Cookie. Session
-- Домашнее задание (HW9 + Optional)
+### ![video](https://cloud.githubusercontent.com/assets/13649199/13672715/06dbc6ce-e6e7-11e5-81a9-04fbddb9e488.png) 6.  <a href="https://drive.google.com/open?id=0B9Ye2auQ_NsFLXp5MTFDMEY5WFE">Spring Validation</a>
+-  **<a href="https://drive.google.com/open?id=0B9Ye2auQ_NsFM0VVX3lPT3BXRDQ">7_validation.patch</a>**
+-  <a href="http://docs.spring.io/spring/docs/current/spring-framework-reference/html/validation.html#validation-beanvalidation">Spring Validation.</a>
+-  <a href="http://beanvalidation.org/">Bean Validation</a>
+-  <a href="https://spring.io/blog/2012/08/29/integrating-spring-mvc-with-jquery-for-validation-rules">Валидация формы по AJAX.</a>
+-  <a href="http://stackoverflow.com/questions/14730329/jpa-2-0-exception-to-use-javax-validation-package-in-jpa-2-0#answer-17142416">JSR-303, 349</a>
+- <a href="https://dzone.com/articles/spring-31-valid-requestbody">@Valid @RequestBody + Error handling</a>
 
-#### 04.08: 10-е занятие
-- Разбор домашнего задания HW10 + Optional
-- Spring Security Taglib. Method Security Expressions
-- Интерсепторы. Редактирование профиля. JSP tag files
-- Форма регистрации
-- Обработка исключений в Spring
-- Encoding password
-- Защита от межсайтовой подделки запросов (CSRF)
-- Домашнее задание (HW10)
+### ![video](https://cloud.githubusercontent.com/assets/13649199/13672715/06dbc6ce-e6e7-11e5-81a9-04fbddb9e488.png) 7.  <a href="https://drive.google.com/open?id=0B9Ye2auQ_NsFcW1qeTVFdS1BdHM">Перевод DataTables на Ajax</a>
+-  **<a href="https://drive.google.com/open?id=0B9Ye2auQ_NsFRWtKYVNxTzJoLW8">8-datatable-via-ajax.patch</a>**
+-  <a href="http://legacy.datatables.net/usage/options">DataTables Options</a>
 
-#### 11.08: Заключительное занятие
-- Рефакторинг
-- Разбор домашнего задания HW10 + Optional
-- Деплой <a href="http://topjava.herokuapp.com/">приложения в Heroku</a>
-- Возможные доработки приложения
-- Опрос участников проекта
-- Домашнее задание по проекту: составление резюме
+### ![video](https://cloud.githubusercontent.com/assets/13649199/13672715/06dbc6ce-e6e7-11e5-81a9-04fbddb9e488.png) 8.  <a href="https://drive.google.com/open?id=0B9Ye2auQ_NsFUmhUTms1WnhTeHc">Форма логина / логаут.</a>
+-  **<a href="https://drive.google.com/open?id=0B9Ye2auQ_NsFUjllT3dhazZEN00">9-min-form-login.patch</a>**
+> Добавил в патч функциональность logout
+
+-  <a href="http://docs.spring.io/spring-security/site/docs/current/reference/htmlsingle/#ns-minimal">Минимальный form-login</a>
+-  <a href="http://docs.spring.io/spring-security/site/migrate/current/3-to-4/html5/migrate-3-to-4-xml.html#m3to4-xmlnamespace-form-login">Migrating &lt;form-login&gt;</a>
+- Вопросы:
+  - Почему при логине как admin еда отдаются для user?
+  - Почему при логине как user не отображается список пользователей?
+  - Почему еда не редактируется?
+-  **<a href="https://drive.google.com/open?id=0B9Ye2auQ_NsFMWFubFItaE5Tdzg">10-jsp-form-login.patch</a>**
+-  <a href="http://docs.spring.io/spring-security/site/docs/current/reference/htmlsingle/#ns-form-and-basic">Собственный form-login</a>
+
+### ![video](https://cloud.githubusercontent.com/assets/13649199/13672715/06dbc6ce-e6e7-11e5-81a9-04fbddb9e488.png) 9. <a href="https://drive.google.com/open?id=0B9Ye2auQ_NsFYTA4aVN4bWxzbEU">Реализация собственного провайдера авторизации.</a>
+-  **<a href="https://drive.google.com/open?id=0B9Ye2auQ_NsFdF9BZEY5ZE8tQmM">11_auth_via_user_service.patch</a>**
+>  Изменения в проекте: вместо `LoggedUser implements UserDetails` сейчас `AuthorizedUser extends org.springframework.security.core.userdetails.User`
+
+-  <a href="http://docs.spring.io/spring-security/site/docs/current/reference/htmlsingle/#userdetailsservice-implementations">UserDetailsService Implementations</a>
+
+### ![video](https://cloud.githubusercontent.com/assets/13649199/13672715/06dbc6ce-e6e7-11e5-81a9-04fbddb9e488.png) 10.  <a href="https://drive.google.com/open?id=0B9Ye2auQ_NsFT2Qya2V4N0kzWWM">Принцип работы Spring Security. Проксирование.</a>
+-  <a href="http://www.spring-source.ru/articles.php?type=manual&theme=articles&docs=article_07">Принцип работы Spring Security</a>
+-  <a href="http://docs.spring.io/spring/docs/current/spring-framework-reference/html/aop.html#aop-proxying">Типы проксирования</a>
+-  <a href="http://samolisov.blogspot.ru/2010/04/proxy-java.html">Dynamic Proxy API</a>
+-  <a href="http://stackoverflow.com/questions/13977093/how-to-use-jparepositories-with-proxy-target-class-true/25543659#25543659">Конфликт проксирования Data Repository</a>
+-  <a href="http://docs.spring.io/spring-security/site/docs/current/reference/htmlsingle/#filter-stack">Security фильтры</a>
+
+### ![video](https://cloud.githubusercontent.com/assets/13649199/13672715/06dbc6ce-e6e7-11e5-81a9-04fbddb9e488.png) 11. <a href="https://drive.google.com/open?id=0B9Ye2auQ_NsFU3hMR0o4eGNoUmc">Spring Security Test</a>
+-  **<a href="https://drive.google.com/open?id=0B9Ye2auQ_NsFTjBaRThxY21VSTA">12-spring-security-test.patch</a>**
+>   Поправил RootControllerTest.
+
+-  <a href="http://docs.spring.io/spring-security/site/docs/4.0.x/reference/htmlsingle/#test">Spring Security Test</a></h3>
+-  <a href="http://docs.spring.io/spring-security/site/docs/4.0.x/reference/htmlsingle/#test-mockmvc">Интеграция со Spring MVC Test</a>
+-  <a href="http://docs.spring.io/spring-security/site/docs/4.0.x/reference/htmlsingle/#testing-http-basic-authentication">HttpBasic авторизация</a>
+-  <a href="http://habrahabr.ru/post/171911/">Тестирование контроллеров с помощью MockMvc (без spring-security-test)</a>
+
+### ![video](https://cloud.githubusercontent.com/assets/13649199/13672715/06dbc6ce-e6e7-11e5-81a9-04fbddb9e488.png) 12. <a href="https://drive.google.com/open?id=0B9Ye2auQ_NsFUzNFanF6MGZGNHc">Cookie. Session.</a>
+-  <a href="https://ru.wikipedia.org/wiki/HTTP_cookie">HTTP cookie</a></h3>
+-  <a href="http://stackoverflow.com/questions/595872/under-what-conditions-is-a-jsessionid-created">Under what conditions is a JSESSIONID created?</a>
+-  <a href="http://halyph.com/2014/08/how-to-disable-tomcat-session.html">Tomcat Session Serialization</a>
+
+## ![hw](https://cloud.githubusercontent.com/assets/13649199/13672719/09593080-e6e7-11e5-81d1-5cb629c438ca.png) Домашнее задание HW9
+
+- Реализовать для meal Binding/ Update/ Validation. Проверить работу при пустом значении Calories.
+- Перевести mealList.jsp на работу по ajax. Стиль строки таблицы сделать в зависимости от exceeded.
+- Починить meals тесты
+
+#### Optional
+- Подключить datetime-picker
+  - <a href="http://xdsoft.net/jqplugins/datetimepicker/">DateTimePicker jQuery plugin</a>
+
+## ![question](https://cloud.githubusercontent.com/assets/13649199/13672858/9cd58692-e6e7-11e5-905d-c295d2a456f1.png) Ваши вопросы
+
+> В `login.jsp` есть форма `&lt;form:form action="spring_security_check" ..&gt; Где такой url используется?
+
+Это стандартный url для авторизации в spring-security. Он его и обрабатывает.
