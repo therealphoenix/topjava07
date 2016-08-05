@@ -120,4 +120,5 @@
 <script type="text/javascript" src="resources/js/jquery.datetimepicker.full.min.js"></script>
 <script type="text/javascript" src="resources/js/datatablesUtil.js"></script>
 <script type="text/javascript" src="resources/js/mealDatatables.js"></script>
+
 </html>
