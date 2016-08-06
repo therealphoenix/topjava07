@@ -2,63 +2,104 @@ var ajaxUrl = 'ajax/profile/meals/';
 var datatableApi;
 
 function updateTable() {
-$.get(ajaxUrl, updateTableByData);
+    $.ajax({
+        type: "POST",
+        url: ajaxUrl + 'filter',
+        data: $('#filter').serialize(),
+        success: updateTableByData
+    });
+    return false;
 }
 
 $(function () {
-datatableApi = $('#datatable').DataTable({
-"ajax": {
-"url": ajaxUrl,
-"dataSrc": ""
-},
-"paging": false,
-"info": true,
-"columns": [
-{
-"data": "dateTime",
-"render": function (date, type, row) {
-if (type == 'display') {
-var dateObject = new Date(date);
-return '<span>' + dateObject.toISOString().replace('T', ' ').substring(0, 16) + '</span>';
-}
-return date;
-}
-},
-{
-"data": "description"
-},
-{
-"data": "calories"
-},
-{
-"orderable": false,
-"defaultContent": "",
-"render": renderEditBtn
-},
-{
-"orderable": false,
-"defaultContent": "",
-"render": renderDeleteBtn
-}
-],
-"order": [
-[
-0,
-"desc"
-]
-],
-"createdRow": function (row, data, dataIndex) {
-/** @namespace data.exceed */
-if (data.exceed) {
-$(row).css("color", "red");
-}
-},
-"initComplete": makeEditable
-});
+    datatableApi = $('#datatable').DataTable({
+        "ajax": {
+            "url": ajaxUrl,
+            "dataSrc": ""
+        },
+        "paging": false,
+        "info": true,
+        "columns": [
+            {
+                "data": "dateTime",
+                "render": function (date, type, row) {
+                    if (type == 'display') {
+                        return date.replace('T', ' ').substr(0, 16);
+                    }
+                    return date;
+                }
+            },
+            {
+                "data": "description"
+            },
+            {
+                "data": "calories"
+            },
+            {
+                "defaultContent": "",
+                "orderable": false,
+                "render": renderEditBtn
+            },
+            {
+                "defaultContent": "",
+                "orderable": false,
+                "render": renderDeleteBtn
 
-$('#filter').submit(function () {
-var form = $('#filter');
-$.post(ajaxUrl + 'filter', form.serialize(), updateTableByData);
-return false;
-});
+            }
+        ],
+        "order": [
+            [
+                0,
+                "desc"
+            ]
+        ],
+        "createdRow": function (row, data, dataIndex) {
+            $(row).addClass(data.exceed ? 'exceeded' : 'normal');
+        },
+        "initComplete": function () {
+            $('#filter').submit(function () {
+                updateTable();
+                return false;
+            });
+
+            var startDate = $('#startDate');
+            var endDate = $('#endDate');
+            
+            startDate.datetimepicker({
+                timepicker: false,
+                format: 'Y-m-d',
+                lang: 'ru',
+                formatDate: 'Y-m-d',
+                onShow: function (ct) {
+                    this.setOptions({
+                        maxDate: endDate.val() ? endDate.val() : false
+                    })
+                }
+            });
+            endDate.datetimepicker({
+                timepicker: false,
+                format: 'Y-m-d',
+                lang: 'ru',
+                formatDate: 'Y-m-d',
+                onShow: function (ct) {
+                    this.setOptions({
+                        minDate: startDate.val() ? startDate.val() : false
+                    })
+                }
+            });
+
+            $('.time-picker').datetimepicker({
+                datepicker: false,
+                format: 'H:i',
+                lang: 'ru'
+            });
+
+            $('#dateTime').datetimepicker({
+                format: 'Y-m-d H:i',
+                lang: 'ru'
+            });
+
+            makeEditable();
+        }
+    });
 });
