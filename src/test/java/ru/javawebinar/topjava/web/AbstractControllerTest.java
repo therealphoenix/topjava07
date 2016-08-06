@@ -45,7 +45,7 @@ abstract public class AbstractControllerTest {
     protected MockMvc mockMvc;
 
     @Autowired
-    private UserService userService;
+    public UserService userService;
 
     @Autowired
     private WebApplicationContext webApplicationContext;
