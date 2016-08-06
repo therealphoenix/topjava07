@@ -2,6 +2,7 @@ package ru.javawebinar.topjava.web.user;
 
 import org.springframework.stereotype.Controller;
 import ru.javawebinar.topjava.model.User;
+import ru.javawebinar.topjava.web.ExceptionInfoHandler;
 
 import java.util.List;
 
@@ -10,7 +11,7 @@ import java.util.List;
  * 06.03.2015.
  */
 @Controller
-public class AdminRestController extends AbstractUserController {
+public class AdminRestController extends AbstractUserController implements ExceptionInfoHandler {
 
     public List<User> getAll() {
         return super.getAll();
