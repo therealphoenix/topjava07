@@ -29,7 +29,7 @@
         <property name="password" value="${database.password}"/>
     </bean>
 
-    <!-- Choose profile from (hsqldb, postgres) and (jdbc,datajpa,jpa) -->
+    <!-- Choose profile from (hsqldb, postgres) and (jdbc,datajpa,jpa)   -->
 
     <tx:annotation-driven/>
 
@@ -83,7 +83,7 @@
               p:packagesToScan="ru.javawebinar.**.model">
             <!--p:persistenceUnitName="persistenceUnit">-->
 
-            <property name="jpaPropertyMap">
+            <property name="jpaPropertyMap" >
                 <map>
                     <entry key="#{T(org.hibernate.cfg.AvailableSettings).FORMAT_SQL}" value="${hibernate.format_sql}"/>
                     <entry key="#{T(org.hibernate.cfg.AvailableSettings).USE_SQL_COMMENTS}"

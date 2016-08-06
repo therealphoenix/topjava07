@@ -56,7 +56,7 @@ public class Main {
     }
 
     public static String replace(String a, String b) {
-        if( a.equals("")){
+        if( a.equals("" )){
             return new String("");
         }
                 if(b == null || b.equals("")){
